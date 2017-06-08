@@ -166,6 +166,12 @@
             <artifactId>parquet-hadoop-bundle</artifactId>
             <version>${parquet.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-json</artifactId>
+            <version>${kafka.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
