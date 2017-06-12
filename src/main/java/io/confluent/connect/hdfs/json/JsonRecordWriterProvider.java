@@ -47,9 +47,9 @@ public class JsonRecordWriterProvider implements RecordWriterProvider {
         // HDFS file path
         final Path path = new Path(fileName);
         final OutputStream out = path.getFileSystem(conf).create(path);
-        final JsonGenerator writer = mapper.getFactory()
-                .createGenerator(out)
-                .setRootValueSeparator(null);
+//        final JsonGenerator writer = mapper.getFactory()
+//                .createGenerator(out)
+//                .setRootValueSeparator(null);
 
         return new RecordWriter<SinkRecord>(){
             @Override
@@ -62,14 +62,17 @@ public class JsonRecordWriterProvider implements RecordWriterProvider {
 //                    out.write(rawJson);
 //                    out.write(LINE_SEPARATOR_BYTES);
 //                } else {
-                    writer.writeObject(value);
-                    writer.writeRaw(LINE_SEPARATOR);
+//                    writer.write(value.toString().getBytes());
+//                    writer.writeRaw(LINE_SEPARATOR);
 //                }
+
+                out.write(record.value().toString().getBytes());
+                out.write("\n".getBytes());
             }
 
             @Override
             public void close() throws IOException {
-                writer.close();
+                out.close();
             }
         };
     }
