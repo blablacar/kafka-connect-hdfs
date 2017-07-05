@@ -36,6 +36,10 @@ public class PlainTextRecordWriterProvider implements RecordWriterProvider {
             public void write(SinkRecord record) throws IOException {
                 log.trace("Sink record: {}", record.toString());
 
+                if (record.value() == null) {
+                    log.warn("Sink record with null value: {}", record.toString());
+                    return;
+                }
                 out.write(record.value().toString().getBytes());
                 out.write("\n".getBytes());
             }
