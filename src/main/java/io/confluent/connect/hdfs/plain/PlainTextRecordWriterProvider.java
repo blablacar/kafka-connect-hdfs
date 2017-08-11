@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 public class PlainTextRecordWriterProvider implements RecordWriterProvider {
 
@@ -40,7 +41,7 @@ public class PlainTextRecordWriterProvider implements RecordWriterProvider {
                     log.warn("Sink record with null value: {}", record.toString());
                     return;
                 }
-                out.write(record.value().toString().getBytes());
+                out.write(record.value().toString().getBytes(Charset.forName("UTF-8")));
                 out.write("\n".getBytes());
             }
 
